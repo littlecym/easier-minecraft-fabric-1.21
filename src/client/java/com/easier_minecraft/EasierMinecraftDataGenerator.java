@@ -1,5 +1,6 @@
 package com.easier_minecraft;
 
+import com.easier_minecraft.datagen.LanguageDatagenProvider;
 import com.easier_minecraft.datagen.RecipeDatagenProvider;
 import com.easier_minecraft.datagen.WorldDatagenProvider;
 import com.easier_minecraft.register.EnchantmentRegister;
@@ -15,6 +16,7 @@ public class EasierMinecraftDataGenerator implements DataGeneratorEntrypoint {
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 
+        pack.addProvider(LanguageDatagenProvider::new);
         pack.addProvider(RecipeDatagenProvider::new);
         pack.addProvider(WorldDatagenProvider::new);
     }

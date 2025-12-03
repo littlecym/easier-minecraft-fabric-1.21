@@ -1,7 +1,7 @@
 {
   "anvil_cost": 1,
   "description": {
-    "translate": "Advanced Sharpness"
+    "translate": "enchantment.easier-minecraft.advanced_sharpness"
   },
   "effects": {
     "minecraft:damage": [

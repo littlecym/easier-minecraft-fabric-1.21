@@ -1,7 +1,7 @@
 {
   "anvil_cost": 1,
   "description": {
-    "translate": "Psychedelic"
+    "translate": "enchantment.easier-minecraft.psychedelic"
   },
   "effects": {
     "minecraft:post_attack": [

@@ -1,7 +1,7 @@
 {
   "anvil_cost": 1,
   "description": {
-    "translate": "Advanced Protection"
+    "translate": "enchantment.easier-minecraft.advanced_protection"
   },
   "effects": {
     "minecraft:attributes": [
