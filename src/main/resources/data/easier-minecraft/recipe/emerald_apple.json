@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
+    "A": {
+      "item": "minecraft:apple"
+    },
     "E": {
       "item": "minecraft:emerald"
-    }, 
-    "A": {
-        "item": "minecraft:apple"
     }
   },
   "pattern": [

@@ -4,9 +4,9 @@
   "key": {
     "E": {
       "item": "minecraft:emerald"
-    }, 
+    },
     "G": {
-        "item": "minecraft:gold_ingot"
+      "item": "minecraft:gold_ingot"
     }
   },
   "pattern": [

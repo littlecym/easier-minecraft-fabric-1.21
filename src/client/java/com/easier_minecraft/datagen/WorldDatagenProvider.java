@@ -7,9 +7,9 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper.WrapperLookup;
 
-public class WorldGen extends FabricDynamicRegistryProvider {
+public class WorldDatagenProvider extends FabricDynamicRegistryProvider {
 
-    public WorldGen(FabricDataOutput output, CompletableFuture<WrapperLookup> registriesFuture) {
+    public WorldDatagenProvider(FabricDataOutput output, CompletableFuture<WrapperLookup> registriesFuture) {
         super(output, registriesFuture);
     }
 

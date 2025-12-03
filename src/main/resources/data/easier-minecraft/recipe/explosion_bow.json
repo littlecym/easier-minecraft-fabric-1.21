@@ -1,15 +1,16 @@
 {
-    "type": "minecraft:crafting_shapeless", 
-    "category": "equipment", 
-    "ingredients": [
-        {
-            "item": "minecraft:bow"
-        }, 
-        {
-            "item": "minecraft:tnt"
-        }
-    ], 
-    "result": {
-        "id": "easier-minecraft:explosion_bow"
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "minecraft:bow"
+    },
+    {
+      "item": "minecraft:tnt"
     }
+  ],
+  "result": {
+    "count": 1,
+    "id": "easier-minecraft:explosion_bow"
+  }
 }

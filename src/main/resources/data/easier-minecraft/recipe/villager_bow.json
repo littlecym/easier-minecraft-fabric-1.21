@@ -1,15 +1,16 @@
 {
-    "type": "minecraft:crafting_shapeless", 
-    "category": "equipment", 
-    "ingredients": [
-        {
-            "item": "minecraft:bow"
-        }, 
-        {
-            "item": "minecraft:emerald"
-        }
-    ], 
-    "result": {
-        "id": "easier-minecraft:villager_bow"
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "minecraft:bow"
+    },
+    {
+      "item": "minecraft:emerald"
     }
+  ],
+  "result": {
+    "count": 1,
+    "id": "easier-minecraft:villager_bow"
+  }
 }
