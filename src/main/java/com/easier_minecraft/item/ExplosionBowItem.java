@@ -42,7 +42,9 @@ public class ExplosionBowItem extends RangedWeaponItem {
 		if (projectileStack.isEmpty()) {
 			return List.of();
 		} else {
-			int i = shooter.getWorld() instanceof ServerWorld serverWorld ? EnchantmentHelper.getProjectileCount(serverWorld, stack, shooter, 1) : 1;
+			int i = shooter.getWorld() instanceof ServerWorld serverWorld
+					? EnchantmentHelper.getProjectileCount(serverWorld, stack, shooter, 1)
+					: 1;
 			@SuppressWarnings({ "rawtypes", "unchecked" })
 			List<ItemStack> list = new ArrayList(i);
 			ItemStack itemStack = projectileStack.copy();
@@ -73,35 +75,42 @@ public class ExplosionBowItem extends RangedWeaponItem {
 					float i = 1.0F;
 
 					for (int j = 0; j < list.size(); j++) {
-						ItemStack arrow = (ItemStack)list.get(j);
+						ItemStack arrow = (ItemStack) list.get(j);
 						if (!arrow.isEmpty()) {
 							float k = h + i * ((j + 1) / 2) * g;
 							i = -i;
-							ExplosiveArrowEntity persistentProjectileEntity = new ExplosiveArrowEntity(serverWorld, playerEntity, stack.copyWithCount(1), stack, doBreakBlock);
+							ExplosiveArrowEntity persistentProjectileEntity = new ExplosiveArrowEntity(serverWorld,
+									playerEntity, stack.copyWithCount(1), stack, doBreakBlock);
 							ProjectileEntity projectileEntity = persistentProjectileEntity;
-							this.shoot(playerEntity, projectileEntity, j, 5.0F, 0.0F, k, null);
+							this.shoot(playerEntity, projectileEntity, j, getSpeed(), 0.0F, k, null);
 							serverWorld.spawnEntity(projectileEntity);
 						}
 					}
 
 					world.playSound(
-						null,
-						playerEntity.getX(),
-						playerEntity.getY(),
-						playerEntity.getZ(),
-						SoundEvents.ENTITY_ARROW_SHOOT,
-						SoundCategory.PLAYERS,
-						1.0F,
-						1.0F / (world.getRandom().nextFloat() * 0.4F + 1.2F) + t * 0.5F
-					);
+							null,
+							playerEntity.getX(),
+							playerEntity.getY(),
+							playerEntity.getZ(),
+							SoundEvents.ENTITY_ARROW_SHOOT,
+							SoundCategory.PLAYERS,
+							1.0F,
+							1.0F / (world.getRandom().nextFloat() * 0.4F + 1.2F) + t * 0.5F);
 					playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
 				}
 			}
 		}
 	}
 
+	private float getSpeed() {
+		if (doBreakBlock)
+			return 3.0F;
+		return 5.0F;
+	}
+
 	@Override
-	protected void shoot(LivingEntity shooter, ProjectileEntity projectile, int index, float speed, float divergence, float yaw, @Nullable LivingEntity target) {
+	protected void shoot(LivingEntity shooter, ProjectileEntity projectile, int index, float speed, float divergence,
+			float yaw, @Nullable LivingEntity target) {
 		projectile.setVelocity(shooter, shooter.getPitch(), shooter.getYaw() + yaw, 0.0F, speed, divergence);
 	}
 
