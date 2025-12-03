@@ -1,0 +1,6 @@
+{
+    "parent": "easier-minecraft:item/firework_rocket_bow",
+    "textures": {
+        "layer0": "easier-minecraft:item/firework_rocket_bow_pulling_0"
+    }
+}

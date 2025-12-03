@@ -1,0 +1,6 @@
+{
+    "parent": "easier-minecraft:item/villager_bow",
+    "textures": {
+        "layer0": "easier-minecraft:item/villager_bow_pulling_1"
+    }
+}

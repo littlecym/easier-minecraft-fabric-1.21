@@ -1,0 +1,9 @@
+{
+    "replace": false, 
+    "values": [
+        "easier-minecraft:advanced_sharpness", 
+        "easier-minecraft:psychedelic", 
+        "easier-minecraft:advanced_protection", 
+        "easier-minecraft:advanced_power"
+    ]
+}
