@@ -2,16 +2,21 @@ package com.easier_minecraft.entity;
 
 import org.jetbrains.annotations.Nullable;
 
+import com.easier_minecraft.misc.KeepItemEntityExplosion;
+
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
 import net.minecraft.world.World.ExplosionSourceType;
+import net.minecraft.world.explosion.Explosion;
 
 public class ExplosiveArrowEntity extends PersistentProjectileEntity {
     private static float power = 0.0F;
@@ -39,15 +44,18 @@ public class ExplosiveArrowEntity extends PersistentProjectileEntity {
     }
 
     protected double getGravity() {
-        if (doBreakBlock) return 0.00F;
+        if (doBreakBlock)
+            return 0.00F;
         return 0.03F;
     }
 
     private void getExplosionPower() {
         float dist = distanceTo(this.getOwner());
         if (doBreakBlock) {
-            if (dist >= 6.0F) power = 4.0F;
-            else power = 0.0F;
+            if (dist >= 6.0F)
+                power = 4.0F;
+            else
+                power = 0.0F;
             return;
         }
         if (dist >= 8.0F) {
@@ -59,27 +67,37 @@ public class ExplosiveArrowEntity extends PersistentProjectileEntity {
         }
     }
 
-    private ExplosionSourceType getExplosionType() {
-        if (doBreakBlock) return World.ExplosionSourceType.TNT;
-        return World.ExplosionSourceType.NONE;
-    }
-
     private DamageSource getShooter() {
         return this.getOwner() == null ? null : this.getDamageSources().explosion(this, this.getOwner());
     }
 
-    protected void onBlockHit(BlockHitResult blockHitResult) {
+    private void createExplosion() {
         getExplosionPower();
-        this.getWorld().createExplosion(this, getShooter(), null, this.getX(), this.getY(), this.getZ(), power, false,
-                getExplosionType());
+        if (doBreakBlock) {
+            this.getWorld().createExplosion(this, this.getShooter(), null, this.getX(), this.getY(), this.getZ(), power,
+                    false,
+                    ExplosionSourceType.TNT, true, ParticleTypes.EXPLOSION,
+                    ParticleTypes.EXPLOSION_EMITTER,
+                    SoundEvents.ENTITY_GENERIC_EXPLODE);
+            this.discard();
+            return;
+        }
+        Explosion.DestructionType destructionType = Explosion.DestructionType.KEEP;
+        KeepItemEntityExplosion explosion = new KeepItemEntityExplosion(this.getWorld(), this, this.getShooter(), null,
+                this.getX(), this.getY(), this.getZ(), power, false, destructionType, ParticleTypes.EXPLOSION,
+                ParticleTypes.EXPLOSION_EMITTER,
+                SoundEvents.ENTITY_GENERIC_EXPLODE);
+        explosion.collectBlocksAndDamageEntities();
+        explosion.affectWorld(true);
         this.discard();
     }
 
+    protected void onBlockHit(BlockHitResult blockHitResult) {
+        createExplosion();
+    }
+
     protected void onEntityHit(EntityHitResult entityHitResult) {
-        getExplosionPower();
-        this.getWorld().createExplosion(this, getShooter(), null, this.getX(), this.getY(), this.getZ(), power, false,
-                getExplosionType());
-        this.discard();
+        createExplosion();
     }
 
     protected ItemStack getDefaultItemStack() {
@@ -90,7 +108,7 @@ public class ExplosiveArrowEntity extends PersistentProjectileEntity {
         super.tick();
         if (!this.isRemoved() && this.isInFluid()) {
             this.getWorld().createExplosion(this, null, null, this.getX(), this.getY(), this.getZ(), 0.0F, false,
-                World.ExplosionSourceType.NONE);
+                    World.ExplosionSourceType.NONE);
             this.discard();
         }
     }
