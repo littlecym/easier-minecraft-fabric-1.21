@@ -1,7 +1,7 @@
 {
   "anvil_cost": 8,
   "description": {
-    "translate": "Infinity"
+    "translate": "enchantment.minecraft.infinity"
   },
   "effects": {
     "minecraft:ammo_use": [

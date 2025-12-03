@@ -8,6 +8,7 @@ import com.easier_minecraft.register.ItemRegister;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryWrapper.WrapperLookup;
 
@@ -33,6 +34,8 @@ public class LanguageDatagenProvider extends FabricLanguageProvider {
         translationBuilder.add(getEnchantmentTranslationKey(EnchantmentRegister.ADVANCED_PROTECTION), "Advanced Protection");
         translationBuilder.add(getEnchantmentTranslationKey(EnchantmentRegister.ADVANCED_SHARPNESS), "Advanced Sharpness");
         translationBuilder.add(getEnchantmentTranslationKey(EnchantmentRegister.PSYCHEDELIC), "Psychedelic");
+        translationBuilder.add(getEnchantmentTranslationKey(Enchantments.INFINITY), "Infinity");
+        translationBuilder.add(getEnchantmentTranslationKey(Enchantments.LOOTING), "Looting");
     }
 
     private static String getEnchantmentTranslationKey(RegistryKey<Enchantment> enchantment) {
