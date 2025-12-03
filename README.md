@@ -1,3 +1,3 @@
-### easier-minecraft-fabric-1.21
+# easier-minecraft-fabric-1.21
 
 Easier Minecraft mod for fabric 1.21
