@@ -1,7 +1,4 @@
 {
     "replace": true, 
-    "values": [
-        "easier-minecraft:advanced_power", 
-        "minecraft:power"
-    ]
+    "values": []
 }

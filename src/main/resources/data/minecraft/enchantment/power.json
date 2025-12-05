@@ -1,7 +1,7 @@
 {
   "anvil_cost": 1,
   "description": {
-    "translate": "enchantment.easier-minecraft.advanced_power"
+    "translate": "enchantment.minecraft.power"
   },
   "effects": {
     "minecraft:damage": [
