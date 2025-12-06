@@ -2,21 +2,16 @@ package com.easier_minecraft.entity;
 
 import org.jetbrains.annotations.Nullable;
 
-import com.easier_minecraft.misc.KeepItemEntityExplosion;
-
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
 import net.minecraft.world.World.ExplosionSourceType;
-import net.minecraft.world.explosion.Explosion;
 
 public class ExplosiveArrowEntity extends PersistentProjectileEntity {
     private static float power = 0.0F;
@@ -67,28 +62,18 @@ public class ExplosiveArrowEntity extends PersistentProjectileEntity {
         }
     }
 
+    private ExplosionSourceType getExplosionSourceType() {
+        return doBreakBlock ? ExplosionSourceType.TNT : ExplosionSourceType.NONE;
+    }
+
     private DamageSource getShooter() {
         return this.getOwner() == null ? null : this.getDamageSources().explosion(this, this.getOwner());
     }
 
     private void createExplosion() {
-        getExplosionPower();
-        if (doBreakBlock) {
-            this.getWorld().createExplosion(this, this.getShooter(), null, this.getX(), this.getY(), this.getZ(), power,
-                    false,
-                    ExplosionSourceType.TNT, true, ParticleTypes.EXPLOSION,
-                    ParticleTypes.EXPLOSION_EMITTER,
-                    SoundEvents.ENTITY_GENERIC_EXPLODE);
-            this.discard();
-            return;
-        }
-        Explosion.DestructionType destructionType = Explosion.DestructionType.KEEP;
-        KeepItemEntityExplosion explosion = new KeepItemEntityExplosion(this.getWorld(), this, this.getShooter(), null,
-                this.getX(), this.getY(), this.getZ(), power, false, destructionType, ParticleTypes.EXPLOSION,
-                ParticleTypes.EXPLOSION_EMITTER,
-                SoundEvents.ENTITY_GENERIC_EXPLODE);
-        explosion.collectBlocksAndDamageEntities();
-        explosion.affectWorld(true);
+        this.getExplosionPower();
+        this.getWorld().createExplosion(this, this.getShooter(), null, this.getX(), this.getY(), this.getZ(), power,
+                    false, getExplosionSourceType());
         this.discard();
     }
 
