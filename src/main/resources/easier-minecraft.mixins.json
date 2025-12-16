@@ -2,7 +2,9 @@
 	"required": true,
 	"package": "com.easier_minecraft.mixin",
 	"compatibilityLevel": "JAVA_21",
-	"mixins": [],
+	"mixins": [
+		"TradeOffers$EnchantBookFactoryMixin"
+	],
 	"injectors": {
 		"defaultRequire": 1
 	},
