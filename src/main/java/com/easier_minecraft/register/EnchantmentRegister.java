@@ -1,6 +1,7 @@
 package com.easier_minecraft.register;
 
 import com.easier_minecraft.EasierMinecraft;
+import com.easier_minecraft.enchantment.ExperienceHarvestEnchantmentEffect;
 import com.easier_minecraft.enchantment.PsychedelicEnchantmentEffect;
 
 import net.minecraft.component.EnchantmentEffectComponentTypes;
@@ -13,11 +14,13 @@ import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 public final class EnchantmentRegister {
 	public static final RegistryKey<Enchantment> PSYCHEDELIC = of("psychedelic");
 	public static final RegistryKey<Enchantment> SONIC_GUARD = of("sonic_guard");
+	public static final RegistryKey<Enchantment> EXPERIENCE_HARVEST = of("experience_harvest");
 
 	public static void bootstrap(Registerable<Enchantment> registry) {
 		RegistryEntryLookup<Item> registryEntryLookup3 = registry.getRegistryLookup(RegistryKeys.ITEM);
@@ -26,7 +29,7 @@ public final class EnchantmentRegister {
 				PSYCHEDELIC,
 				Enchantment.builder(
 						Enchantment.definition(
-								registryEntryLookup3.getOrThrow(ItemTags.SHARP_WEAPON_ENCHANTABLE),
+								registryEntryLookup3.getOrThrow(TagKey.of(RegistryKeys.ITEM, Identifier.ofVanilla("enchantable/psychedelic"))),
 								registryEntryLookup3.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
 								10,
 								3,
@@ -48,6 +51,21 @@ public final class EnchantmentRegister {
 								Enchantment.leveledCost(11, 6),
 								2,
 								AttributeModifierSlot.CHEST)));
+		register(
+				registry,
+				EXPERIENCE_HARVEST,
+				Enchantment.builder(
+						Enchantment.definition(
+								registryEntryLookup3.getOrThrow(ItemTags.SHARP_WEAPON_ENCHANTABLE),
+								registryEntryLookup3.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
+								10,
+								3,
+								Enchantment.leveledCost(1, 11),
+								Enchantment.leveledCost(12, 11),
+								1,
+								AttributeModifierSlot.MAINHAND))
+						.addEffect(EnchantmentEffectComponentTypes.POST_ATTACK, EnchantmentEffectTarget.ATTACKER,
+								EnchantmentEffectTarget.ATTACKER, new ExperienceHarvestEnchantmentEffect()));
 	}
 
 	private static void register(Registerable<Enchantment> registry, RegistryKey<Enchantment> key,

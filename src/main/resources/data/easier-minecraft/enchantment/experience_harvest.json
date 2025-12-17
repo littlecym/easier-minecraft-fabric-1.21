@@ -1,14 +1,14 @@
 {
   "anvil_cost": 1,
   "description": {
-    "translate": "enchantment.easier-minecraft.psychedelic"
+    "translate": "enchantment.easier-minecraft.experience_harvest"
   },
   "effects": {
     "minecraft:post_attack": [
       {
-        "affected": "victim",
+        "affected": "attacker",
         "effect": {
-          "type": "easier-minecraft:psychedelic"
+          "type": "easier-minecraft:experience_harvest"
         },
         "enchanted": "attacker"
       }
@@ -27,6 +27,6 @@
   "slots": [
     "mainhand"
   ],
-  "supported_items": "#minecraft:enchantable/psychedelic",
+  "supported_items": "#minecraft:enchantable/sharp_weapon",
   "weight": 10
 }
