@@ -6,6 +6,7 @@ import net.minecraft.enchantment.EnchantmentEffectContext;
 import net.minecraft.enchantment.effect.EnchantmentEntityEffect;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ExperienceOrbEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
@@ -17,9 +18,13 @@ public record ExperienceHarvestEnchantmentEffect() implements EnchantmentEntityE
     @Override
     public void apply(ServerWorld world, int level, EnchantmentEffectContext context, Entity user, Vec3d pos) {
         int temp = user.getRandom().nextInt(level);
-        ExperienceOrbEntity.spawn(world, user.getPos(), level * 100);
-        ((PlayerEntity) user).experienceLevel += temp;
-        ((PlayerEntity) user).heal(temp);
+        if (user instanceof PlayerEntity) {
+            ExperienceOrbEntity.spawn(world, user.getPos(), level * 100);
+            ((PlayerEntity) user).experienceLevel += temp;
+        }
+        if (user instanceof LivingEntity) {
+            ((LivingEntity) user).heal((float) temp);
+        }
     }
 
     @Override
