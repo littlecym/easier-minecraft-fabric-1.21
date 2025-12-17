@@ -3,7 +3,8 @@
 	"package": "com.easier_minecraft.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"TradeOffers$EnchantBookFactoryMixin"
+		"TradeOffers$EnchantBookFactoryMixin", 
+		"DamageMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

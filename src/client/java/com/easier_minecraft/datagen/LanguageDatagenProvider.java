@@ -31,8 +31,8 @@ public class LanguageDatagenProvider extends FabricLanguageProvider {
         translationBuilder.add(ItemRegister.TELEPORT_BOW, "Teleport Bow");
         translationBuilder.add(ItemRegister.VILLAGER_BOW, "Villager Bow");
         translationBuilder.add(getEnchantmentTranslationKey(EnchantmentRegister.PSYCHEDELIC), "Psychedelic");
+        translationBuilder.add(getEnchantmentTranslationKey(EnchantmentRegister.SONIC_GUARD), "Sonic Guard");
         translationBuilder.add(getEnchantmentTranslationKey(Enchantments.INFINITY), "Infinity");
-        translationBuilder.add(getEnchantmentTranslationKey(Enchantments.LOOTING), "Looting");
         translationBuilder.add(getEnchantmentTranslationKey(Enchantments.POWER), "Power");
         translationBuilder.add(getEnchantmentTranslationKey(Enchantments.PROTECTION), "Protection");
         translationBuilder.add(getEnchantmentTranslationKey(Enchantments.SHARPNESS), "Sharpness");

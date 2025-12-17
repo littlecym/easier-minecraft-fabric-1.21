@@ -17,6 +17,7 @@ import net.minecraft.util.Identifier;
 
 public final class EnchantmentRegister {
 	public static final RegistryKey<Enchantment> PSYCHEDELIC = of("psychedelic");
+	public static final RegistryKey<Enchantment> SONIC_GUARD = of("sonic_guard");
 
 	public static void bootstrap(Registerable<Enchantment> registry) {
 		RegistryEntryLookup<Item> registryEntryLookup3 = registry.getRegistryLookup(RegistryKeys.ITEM);
@@ -35,6 +36,18 @@ public final class EnchantmentRegister {
 								AttributeModifierSlot.MAINHAND))
 						.addEffect(EnchantmentEffectComponentTypes.POST_ATTACK, EnchantmentEffectTarget.ATTACKER,
 								EnchantmentEffectTarget.VICTIM, new PsychedelicEnchantmentEffect()));
+		register(
+				registry,
+				SONIC_GUARD,
+				Enchantment.builder(
+						Enchantment.definition(
+								registryEntryLookup3.getOrThrow(ItemTags.CHEST_ARMOR_ENCHANTABLE),
+								5,
+								4,
+								Enchantment.leveledCost(5, 6),
+								Enchantment.leveledCost(11, 6),
+								2,
+								AttributeModifierSlot.CHEST)));
 	}
 
 	private static void register(Registerable<Enchantment> registry, RegistryKey<Enchantment> key,

@@ -1,6 +1,7 @@
 {
     "replace": false, 
     "values": [
-        "easier-minecraft:psychedelic"
+        "easier-minecraft:psychedelic", 
+        "easier-minecraft:sonic_guard"
     ]
 }
