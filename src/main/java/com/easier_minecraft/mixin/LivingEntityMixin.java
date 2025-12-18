@@ -19,13 +19,13 @@ import net.minecraft.registry.entry.RegistryEntry;
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {
     @ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true, ordinal = 0)
-    private float modifyDamageAmount(float Amount, DamageSource source) {
+    private float modifyDamageAmount(float amount, DamageSource source) {
         LivingEntity target = (LivingEntity) (Object) this;
         Optional<RegistryEntry.Reference<Enchantment>> sonicGuardEntry = target.getWorld().getRegistryManager()
                 .getWrapperOrThrow(RegistryKeys.ENCHANTMENT)
                 .getOptional(EnchantmentRegister.SONIC_GUARD);
 
-        if (source.isOf(DamageTypes.SONIC_BOOM)) {
+        if (source.isOf(DamageTypes.SONIC_BOOM) && sonicGuardEntry.isPresent()) {
             int sonicGuardLevel = 0;
             for (ItemStack armorStack : target.getArmorItems()) {
                 sonicGuardLevel += EnchantmentHelper.getLevel(sonicGuardEntry.get(), armorStack);
@@ -33,11 +33,11 @@ public class LivingEntityMixin {
 
             if (sonicGuardLevel > 0) {
                 float reductionPercent = calculateReductionPercent(sonicGuardLevel);
-                return Amount * (1.0F - reductionPercent);
+                return amount * (1.0F - reductionPercent);
             }
         }
 
-        return Amount;
+        return amount;
     }
 
     private float calculateReductionPercent(int sonicGuardLevel) {

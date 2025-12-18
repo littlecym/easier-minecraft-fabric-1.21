@@ -4,7 +4,10 @@
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
 		"TradeOffers$EnchantBookFactoryMixin", 
-		"LivingEntityMixin"
+		"LivingEntityMixin", 
+		"IronGolemEntityMixin", 
+		"VillagerEntityMixin", 
+		"ServerPlayerEntityMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

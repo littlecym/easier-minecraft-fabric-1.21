@@ -21,6 +21,7 @@ public final class EnchantmentRegister {
 	public static final RegistryKey<Enchantment> PSYCHEDELIC = of("psychedelic");
 	public static final RegistryKey<Enchantment> SONIC_GUARD = of("sonic_guard");
 	public static final RegistryKey<Enchantment> EXPERIENCE_HARVEST = of("experience_harvest");
+	public static final RegistryKey<Enchantment> VOID_SALVATION = of("void_salvation");
 
 	public static void bootstrap(Registerable<Enchantment> registry) {
 		RegistryEntryLookup<Item> registryEntryLookup3 = registry.getRegistryLookup(RegistryKeys.ITEM);
@@ -29,7 +30,8 @@ public final class EnchantmentRegister {
 				PSYCHEDELIC,
 				Enchantment.builder(
 						Enchantment.definition(
-								registryEntryLookup3.getOrThrow(TagKey.of(RegistryKeys.ITEM, Identifier.ofVanilla("enchantable/psychedelic"))),
+								registryEntryLookup3.getOrThrow(
+										TagKey.of(RegistryKeys.ITEM, Identifier.ofVanilla("enchantable/psychedelic"))),
 								registryEntryLookup3.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
 								10,
 								3,
@@ -50,7 +52,7 @@ public final class EnchantmentRegister {
 								Enchantment.leveledCost(5, 6),
 								Enchantment.leveledCost(11, 6),
 								2,
-								AttributeModifierSlot.CHEST)));
+								AttributeModifierSlot.ARMOR)));
 		register(
 				registry,
 				EXPERIENCE_HARVEST,
@@ -66,6 +68,18 @@ public final class EnchantmentRegister {
 								AttributeModifierSlot.MAINHAND))
 						.addEffect(EnchantmentEffectComponentTypes.POST_ATTACK, EnchantmentEffectTarget.ATTACKER,
 								EnchantmentEffectTarget.ATTACKER, new ExperienceHarvestEnchantmentEffect()));
+		register(
+				registry,
+				VOID_SALVATION,
+				Enchantment.builder(
+						Enchantment.definition(
+								registryEntryLookup3.getOrThrow(ItemTags.LEG_ARMOR_ENCHANTABLE),
+								2,
+								1,
+								Enchantment.leveledCost(25, 25),
+								Enchantment.leveledCost(75, 25),
+								4,
+								AttributeModifierSlot.ARMOR)));
 	}
 
 	private static void register(Registerable<Enchantment> registry, RegistryKey<Enchantment> key,

@@ -32,6 +32,7 @@ public class LanguageDatagenProvider extends FabricLanguageProvider {
         translationBuilder.add(getEnchantmentTranslationKey(EnchantmentRegister.PSYCHEDELIC), "Psychedelic");
         translationBuilder.add(getEnchantmentTranslationKey(EnchantmentRegister.SONIC_GUARD), "Sonic Guard");
         translationBuilder.add(getEnchantmentTranslationKey(EnchantmentRegister.EXPERIENCE_HARVEST), "Experience Harvest");
+        translationBuilder.add(getEnchantmentTranslationKey(EnchantmentRegister.VOID_SALVATION), "Void Salvation");
     }
 
     private static String getEnchantmentTranslationKey(RegistryKey<Enchantment> enchantment) {
