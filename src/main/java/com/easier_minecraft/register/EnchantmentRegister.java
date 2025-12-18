@@ -3,6 +3,7 @@ package com.easier_minecraft.register;
 import com.easier_minecraft.EasierMinecraft;
 import com.easier_minecraft.enchantment.ExperienceHarvestEnchantmentEffect;
 import com.easier_minecraft.enchantment.PsychedelicEnchantmentEffect;
+import com.easier_minecraft.enchantment.SwiftComboEnchantmentEffect;
 
 import net.minecraft.component.EnchantmentEffectComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
@@ -22,6 +23,7 @@ public final class EnchantmentRegister {
 	public static final RegistryKey<Enchantment> SONIC_GUARD = of("sonic_guard");
 	public static final RegistryKey<Enchantment> EXPERIENCE_HARVEST = of("experience_harvest");
 	public static final RegistryKey<Enchantment> VOID_SALVATION = of("void_salvation");
+	public static final RegistryKey<Enchantment> SWIFT_COMBO = of("swift_combo");
 
 	public static void bootstrap(Registerable<Enchantment> registry) {
 		RegistryEntryLookup<Item> registryEntryLookup3 = registry.getRegistryLookup(RegistryKeys.ITEM);
@@ -80,6 +82,20 @@ public final class EnchantmentRegister {
 								Enchantment.leveledCost(75, 25),
 								4,
 								AttributeModifierSlot.ARMOR)));
+		register(
+				registry,
+				SWIFT_COMBO,
+				Enchantment.builder(
+						Enchantment.definition(
+								registryEntryLookup3.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
+								10,
+								5,
+								Enchantment.leveledCost(1, 11),
+								Enchantment.leveledCost(21, 11),
+								1,
+								AttributeModifierSlot.MAINHAND))
+						.addEffect(EnchantmentEffectComponentTypes.POST_ATTACK, EnchantmentEffectTarget.ATTACKER,
+								EnchantmentEffectTarget.VICTIM, new SwiftComboEnchantmentEffect()));
 	}
 
 	private static void register(Registerable<Enchantment> registry, RegistryKey<Enchantment> key,
