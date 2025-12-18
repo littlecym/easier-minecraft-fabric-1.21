@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 
 import com.easier_minecraft.register.EnchantmentEffectsRegister;
 import com.easier_minecraft.register.EntityRegister;
+import com.easier_minecraft.register.ServerReceiverRegister;
 import com.easier_minecraft.register.ItemRegister;
 import com.easier_minecraft.register.PlacedFeatureRegister;
 
@@ -29,6 +30,8 @@ public class EasierMinecraft implements ModInitializer {
 		EntityRegister.onInitialize();
 		EnchantmentEffectsRegister.onInitialize();
 		PlacedFeatureRegister.onInitialize();
+		ServerReceiverRegister.onInitialize();
+		EasierMinecraftNetworkingConstant.onInitialize();
 
 	}
 }

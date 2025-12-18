@@ -17,7 +17,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 
 @Mixin(LivingEntity.class)
-public class DamageMixin {
+public class LivingEntityMixin {
     @ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true, ordinal = 0)
     private float modifyDamageAmount(float Amount, DamageSource source) {
         LivingEntity target = (LivingEntity) (Object) this;

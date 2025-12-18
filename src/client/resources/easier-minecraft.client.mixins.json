@@ -2,7 +2,9 @@
 	"required": true,
 	"package": "com.easier_minecraft.mixin.client",
 	"compatibilityLevel": "JAVA_21",
-	"client": [],
+	"client": [
+		"ClientPlayerEntityMixin"
+	],
 	"injectors": {
 		"defaultRequire": 1
 	}
