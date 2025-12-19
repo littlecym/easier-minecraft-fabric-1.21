@@ -3,6 +3,7 @@ package com.easier_minecraft.mixin;
 import java.util.Optional;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -21,16 +22,18 @@ import net.minecraft.server.world.ServerWorld;
 
 @Mixin(ServerPlayerEntity.class)
 public class ServerPlayerEntityMixin {
+    @Unique
+    private ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
+    @Unique
+    private Optional<RegistryEntry.Reference<Enchantment>> voidSalvationEntry = null;
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void onTick(CallbackInfo ci) {
-        ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
         if (player.getY() < player.getWorld().getBottomY() - 32) {
-            Optional<RegistryEntry.Reference<Enchantment>> voidSalvationEntry = player.getWorld().getRegistryManager()
-                    .getWrapperOrThrow(RegistryKeys.ENCHANTMENT)
-                    .getOptional(EnchantmentRegister.VOID_SALVATION);
-            if (voidSalvationEntry.isEmpty()) {
-                return;
+            if (voidSalvationEntry == null) {
+                voidSalvationEntry = player.getWorld().getRegistryManager()
+                        .getWrapperOrThrow(RegistryKeys.ENCHANTMENT)
+                        .getOptional(EnchantmentRegister.VOID_SALVATION);
             }
             int voidSalvationLevel = 0;
             for (ItemStack armorStack : player.getArmorItems()) {

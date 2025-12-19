@@ -3,8 +3,6 @@ package com.easier_minecraft.register;
 import com.easier_minecraft.EasierMinecraft;
 import com.easier_minecraft.enchantment.ExperienceHarvestEnchantmentEffect;
 import com.easier_minecraft.enchantment.PsychedelicEnchantmentEffect;
-import com.easier_minecraft.enchantment.SwiftComboEnchantmentEffect;
-
 import net.minecraft.component.EnchantmentEffectComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
@@ -93,9 +91,7 @@ public final class EnchantmentRegister {
 								Enchantment.leveledCost(1, 11),
 								Enchantment.leveledCost(21, 11),
 								1,
-								AttributeModifierSlot.MAINHAND))
-						.addEffect(EnchantmentEffectComponentTypes.POST_ATTACK, EnchantmentEffectTarget.ATTACKER,
-								EnchantmentEffectTarget.VICTIM, new SwiftComboEnchantmentEffect()));
+								AttributeModifierSlot.MAINHAND)));
 	}
 
 	private static void register(Registerable<Enchantment> registry, RegistryKey<Enchantment> key,

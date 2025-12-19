@@ -3,10 +3,13 @@ package com.easier_minecraft.mixin;
 import java.util.Optional;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
 import com.easier_minecraft.register.EnchantmentRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -21,6 +24,12 @@ import net.minecraft.registry.entry.RegistryEntry;
 
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {
+    @Unique
+    private LivingEntity target = (LivingEntity) (Object) this;
+    @Unique
+    private Optional<RegistryEntry.Reference<Enchantment>> swiftComboEntry = null;
+    @Unique
+    private Optional<RegistryEntry.Reference<Enchantment>> sonicGuardEntry = null;
 
     private float calculateReductionPercent(int sonicGuardLevel) {
         return Math.min(sonicGuardLevel * 0.2F, 0.8F);
@@ -28,12 +37,12 @@ public class LivingEntityMixin {
 
     @ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true, ordinal = 0)
     private float modifyDamageAmount(float amount, DamageSource source) {
-        LivingEntity target = (LivingEntity) (Object) this;
-        Optional<RegistryEntry.Reference<Enchantment>> sonicGuardEntry = target.getWorld().getRegistryManager()
-                .getWrapperOrThrow(RegistryKeys.ENCHANTMENT)
-                .getOptional(EnchantmentRegister.SONIC_GUARD);
-
-        if (source.isOf(DamageTypes.SONIC_BOOM) && sonicGuardEntry.isPresent()) {
+        if (source.isOf(DamageTypes.SONIC_BOOM)) {
+            if (sonicGuardEntry == null) {
+                sonicGuardEntry = target.getWorld().getRegistryManager()
+                        .getWrapperOrThrow(RegistryKeys.ENCHANTMENT)
+                        .getOptional(EnchantmentRegister.SONIC_GUARD);
+            }
             int sonicGuardLevel = 0;
             for (ItemStack armorStack : target.getArmorItems()) {
                 sonicGuardLevel += EnchantmentHelper.getLevel(sonicGuardEntry.get(), armorStack);
@@ -50,20 +59,35 @@ public class LivingEntityMixin {
 
     @Inject(method = "onDamaged", at = @At("TAIL"))
     private void modifyHurtTime(DamageSource source, CallbackInfo ci) {
-        LivingEntity target = (LivingEntity) (Object) this;
         Entity sourceEntity = source.getAttacker();
         if (!(sourceEntity instanceof PlayerEntity)) {
             return;
         }
-        Optional<RegistryEntry.Reference<Enchantment>> swiftComboEntry = sourceEntity.getWorld().getRegistryManager()
-                .getWrapperOrThrow(RegistryKeys.ENCHANTMENT)
-                .getOptional(EnchantmentRegister.SWIFT_COMBO);
-        if (swiftComboEntry.isEmpty()) {
-            return;
+        if (swiftComboEntry == null) {
+            swiftComboEntry = target.getWorld().getRegistryManager()
+                    .getWrapperOrThrow(RegistryKeys.ENCHANTMENT)
+                    .getOptional(EnchantmentRegister.SWIFT_COMBO);
         }
         int swiftComboLevel = EnchantmentHelper.getLevel(swiftComboEntry.get(),
                 ((LivingEntity) sourceEntity).getMainHandStack());
-        target.hurtTime = Math.max(0, target.maxHurtTime - 2 * swiftComboLevel);
+        target.hurtTime = Math.max(0, 10 - 2 * swiftComboLevel);
+    }
+
+    @Inject(method = "damage", at = @At("TAIL"))
+    private void modifyTimeUntilRegen(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        Entity sourceEntity = source.getAttacker();
+        if (!(sourceEntity instanceof PlayerEntity)) {
+            return;
+        }
+
+        if (swiftComboEntry == null) {
+            swiftComboEntry = target.getWorld().getRegistryManager()
+                    .getWrapperOrThrow(RegistryKeys.ENCHANTMENT)
+                    .getOptional(EnchantmentRegister.SWIFT_COMBO);
+        }
+        int swiftComboLevel = EnchantmentHelper.getLevel(swiftComboEntry.get(),
+                ((LivingEntity) sourceEntity).getMainHandStack());
+        target.timeUntilRegen = Math.max(10, 20 - 2 * swiftComboLevel);
     }
 
 }

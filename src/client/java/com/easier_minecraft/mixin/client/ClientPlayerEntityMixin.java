@@ -13,24 +13,27 @@ import com.easier_minecraft.Payload.StopFallFlyingPayload;
 @Mixin(ClientPlayerEntity.class)
 public class ClientPlayerEntityMixin {
     @Unique
-    private int Cooldown = 20;
+    private int cooldown = 10;
+    @Unique
+    boolean wasJumping = false;
 
     @Inject(method = "tickMovement", at = @At("TAIL"))
     private void onJump(CallbackInfo ci) {
         ClientPlayerEntity player = (ClientPlayerEntity) (Object) this;
 
-        if (!player.isFallFlying()) {
-            Cooldown = 20;
-            return;
-        }
-        if (Cooldown > 0) {
-            --Cooldown;
-            return;
-        }
-
-        if (player.input.jumping) {
+        if (cooldown == 0 && player.input.jumping && !wasJumping) {
             ClientPlayNetworking.send(new StopFallFlyingPayload());
-            Cooldown = 20;
+            cooldown = 10;
+        }
+        if (!player.input.jumping) {
+            wasJumping = false;
+        } else {
+            wasJumping = true;
+        }
+        if (!player.isFallFlying()) {
+            cooldown = 10;
+        } else if (cooldown > 0) {
+            --cooldown;
         }
     }
 }
