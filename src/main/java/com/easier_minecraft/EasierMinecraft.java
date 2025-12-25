@@ -2,6 +2,9 @@ package com.easier_minecraft;
 
 import net.fabricmc.api.ModInitializer;
 
+// import org.slf4j.Logger;
+// import org.slf4j.LoggerFactory;
+
 import com.easier_minecraft.register.EnchantmentEffectsRegister;
 import com.easier_minecraft.register.EntityRegister;
 import com.easier_minecraft.register.ServerReceiverRegister;
@@ -32,6 +35,7 @@ public class EasierMinecraft implements ModInitializer {
 		PlacedFeatureRegister.onInitialize();
 		ServerReceiverRegister.onInitialize();
 		EasierMinecraftNetworkingConstant.onInitialize();
+		ServerEvents.onInitialize();
 
 	}
 }

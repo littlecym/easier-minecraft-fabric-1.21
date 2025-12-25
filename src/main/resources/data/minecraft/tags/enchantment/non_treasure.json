@@ -5,6 +5,8 @@
         "easier-minecraft:sonic_guard", 
         "easier-minecraft:experience_harvest", 
         "easier-minecraft:void_salvation", 
-        "easier-minecraft:swift_combo"
+        "easier-minecraft:swift_combo", 
+        "easier-minecraft:life_drain", 
+        "easier-minecraft:quick_draw"
     ]
 }

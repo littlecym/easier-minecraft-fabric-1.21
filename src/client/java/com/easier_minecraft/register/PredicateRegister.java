@@ -1,6 +1,8 @@
 package com.easier_minecraft.register;
 
 
+import com.easier_minecraft.item.DiamondBowItem;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
@@ -66,5 +68,20 @@ public final class PredicateRegister {
 			}
 			return livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F;
 		});
+
+		FabricModelPredicateProviderRegistry.register(ItemRegister.DIAMOND_BOW, Identifier.ofVanilla("pull"), (itemStack, clientWorld, livingEntity, seed) -> {
+			if (livingEntity == null) {
+				return 0.0F;
+			}
+			return livingEntity.getActiveItem() != itemStack ? 0.0F : (itemStack.getMaxUseTime(livingEntity) - livingEntity.getItemUseTimeLeft()) * (DiamondBowItem.getQuickDrawLevel(itemStack) + 1) / 20.0F;
+		});
+	
+		FabricModelPredicateProviderRegistry.register(ItemRegister.DIAMOND_BOW, Identifier.ofVanilla("pulling"), (itemStack, clientWorld, livingEntity, seed) -> {
+			if (livingEntity == null) {
+				return 0.0F;
+			}
+			return livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F;
+		});
+
 	}
 }

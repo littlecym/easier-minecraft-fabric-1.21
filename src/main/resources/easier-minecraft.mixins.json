@@ -8,8 +8,12 @@
 		"IronGolemEntityMixin", 
 		"VillagerEntityMixin", 
 		"ServerPlayerEntityMixin", 
+		"PlayerEntityMixin", 
 		"ExperienceOrbEntityMixin", 
-		"TradeOfferMixin"
+		"TradeOfferMixin", 
+		"ArrowEntityMixin", 
+		"ArrowEntityAccessor", 
+		"EntityMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

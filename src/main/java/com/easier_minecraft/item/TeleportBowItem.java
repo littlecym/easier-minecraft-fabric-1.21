@@ -30,6 +30,11 @@ public class TeleportBowItem extends RangedWeaponItem {
 		super(settings);
 	}
 
+	@Override
+	public boolean hasGlint(ItemStack stack) {
+		return true;
+	}
+
 	private ItemStack getArrow(ItemStack stack, ItemStack projectileStack) {
 		ItemStack itemStack = projectileStack.copyWithCount(1);
 		itemStack.set(DataComponentTypes.INTANGIBLE_PROJECTILE, Unit.INSTANCE);

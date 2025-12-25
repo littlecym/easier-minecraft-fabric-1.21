@@ -1,6 +1,7 @@
 package com.easier_minecraft.register;
 
 import com.easier_minecraft.EasierMinecraft;
+import com.easier_minecraft.item.DiamondBowItem;
 import com.easier_minecraft.item.EmeraldAppleItem;
 import com.easier_minecraft.item.ExplosionBowItem;
 import com.easier_minecraft.item.FireworkRocketBowItem;
@@ -32,6 +33,10 @@ public final class ItemRegister {
 	public static final VillagerBowItem VILLAGER_BOW = new VillagerBowItem(new VillagerBowItem.Settings()
 			.maxCount(1));
 
+	public static final DiamondBowItem DIAMOND_BOW = new DiamondBowItem(new DiamondBowItem.Settings()
+			.maxCount(1)
+			.maxDamage(3047));
+
 	public static final EmeraldAppleItem EMERALD_APPLE = new EmeraldAppleItem(new EmeraldAppleItem.Settings()
 			.maxCount(64)
 			.food(new FoodComponent.Builder()
@@ -57,8 +62,10 @@ public final class ItemRegister {
 	public static void onInitialize() {
 		Registry.register(Registries.ITEM, Identifier.of(EasierMinecraft.MOD_ID, "explosion_bow"), EXPLOSION_BOW);
 		Registry.register(Registries.ITEM, Identifier.of(EasierMinecraft.MOD_ID, "teleport_bow"), TELEPORT_BOW);
-		Registry.register(Registries.ITEM, Identifier.of(EasierMinecraft.MOD_ID, "firework_rocket_bow"), FIREWORK_ROCKET_BOW);
+		Registry.register(Registries.ITEM, Identifier.of(EasierMinecraft.MOD_ID, "firework_rocket_bow"),
+				FIREWORK_ROCKET_BOW);
 		Registry.register(Registries.ITEM, Identifier.of(EasierMinecraft.MOD_ID, "villager_bow"), VILLAGER_BOW);
+		Registry.register(Registries.ITEM, Identifier.of(EasierMinecraft.MOD_ID, "diamond_bow"), DIAMOND_BOW);
 		Registry.register(Registries.ITEM, Identifier.of(EasierMinecraft.MOD_ID, "emerald_apple"), EMERALD_APPLE);
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(content -> {
 			content.addAfter(Items.BOW, EXPLOSION_BOW);
@@ -72,6 +79,9 @@ public final class ItemRegister {
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(content -> {
 			content.addAfter(Items.BOW, VILLAGER_BOW);
 		});
+		ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(content -> {
+			content.addAfter(Items.BOW, DIAMOND_BOW);
+		});
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(content -> {
 			content.addAfter(Items.ENCHANTED_GOLDEN_APPLE, EMERALD_APPLE);
 		});
@@ -79,6 +89,7 @@ public final class ItemRegister {
 		FuelRegistry.INSTANCE.add(TELEPORT_BOW, 300);
 		FuelRegistry.INSTANCE.add(FIREWORK_ROCKET_BOW, 300);
 		FuelRegistry.INSTANCE.add(VILLAGER_BOW, 300);
+		FuelRegistry.INSTANCE.add(DIAMOND_BOW, 300);
 	}
 
 }

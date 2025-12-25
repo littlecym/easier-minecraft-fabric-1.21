@@ -5,20 +5,20 @@
     "D": {
       "item": "minecraft:diamond"
     },
-    "E": {
-      "item": "minecraft:emerald"
+    "S": {
+      "item": "minecraft:string"
     },
-    "G": {
-      "item": "minecraft:gold_block"
+    "W": {
+      "item": "minecraft:stick"
     }
   },
   "pattern": [
-    "EDE",
-    "DGD",
-    " D "
+    "WWD",
+    "W S",
+    "DSS"
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:totem_of_undying"
+    "id": "easier-minecraft:diamond_bow"
   }
 }

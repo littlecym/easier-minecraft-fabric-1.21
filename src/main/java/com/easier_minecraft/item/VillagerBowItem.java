@@ -27,8 +27,13 @@ import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 
 public class VillagerBowItem extends RangedWeaponItem {
-    public VillagerBowItem(Item.Settings settings) {
+	public VillagerBowItem(Item.Settings settings) {
 		super(settings);
+	}
+
+	@Override
+	public boolean hasGlint(ItemStack stack) {
+		return true;
 	}
 
 	private ItemStack getArrow(ItemStack stack, ItemStack projectileStack) {

@@ -29,11 +29,14 @@ public class LanguageDatagenProvider extends FabricLanguageProvider {
         translationBuilder.add(ItemRegister.FIREWORK_ROCKET_BOW, "Firework Rocket Bow");
         translationBuilder.add(ItemRegister.TELEPORT_BOW, "Teleport Bow");
         translationBuilder.add(ItemRegister.VILLAGER_BOW, "Villager Bow");
+        translationBuilder.add(ItemRegister.DIAMOND_BOW, "Diamond Bow");
         translationBuilder.add(getEnchantmentTranslationKey(EnchantmentRegister.PSYCHEDELIC), "Psychedelic");
         translationBuilder.add(getEnchantmentTranslationKey(EnchantmentRegister.SONIC_GUARD), "Sonic Guard");
         translationBuilder.add(getEnchantmentTranslationKey(EnchantmentRegister.EXPERIENCE_HARVEST), "Experience Harvest");
         translationBuilder.add(getEnchantmentTranslationKey(EnchantmentRegister.VOID_SALVATION), "Void Salvation");
         translationBuilder.add(getEnchantmentTranslationKey(EnchantmentRegister.SWIFT_COMBO), "Swift Combo");
+        translationBuilder.add(getEnchantmentTranslationKey(EnchantmentRegister.LIFE_DRAIN), "Life Drain");
+        translationBuilder.add(getEnchantmentTranslationKey(EnchantmentRegister.QUICK_DRAW), "Quick Draw");
     }
 
     private static String getEnchantmentTranslationKey(RegistryKey<Enchantment> enchantment) {

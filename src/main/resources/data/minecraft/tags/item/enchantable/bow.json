@@ -1,7 +1,6 @@
 {
   "replace": false, 
   "values": [
-    "minecraft:bow", 
     "easier-minecraft:diamond_bow"
   ]
 }

@@ -18,6 +18,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -37,7 +38,11 @@ public class LivingEntityMixin {
 
     @ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true, ordinal = 0)
     private float modifyDamageAmount(float amount, DamageSource source) {
-        if (source.isOf(DamageTypes.SONIC_BOOM)) {
+        if (source.getSource() instanceof ArrowEntity arrowEntity) {
+            if (((ArrowEntityAccessor)arrowEntity).getMultiDamage()) {
+                amount *= 1.5F;
+            }
+        } else if (source.isOf(DamageTypes.SONIC_BOOM)) {
             if (sonicGuardEntry == null) {
                 sonicGuardEntry = target.getWorld().getRegistryManager()
                         .getWrapperOrThrow(RegistryKeys.ENCHANTMENT)

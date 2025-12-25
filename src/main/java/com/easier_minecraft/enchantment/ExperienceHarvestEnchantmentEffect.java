@@ -19,8 +19,7 @@ public record ExperienceHarvestEnchantmentEffect() implements EnchantmentEntityE
     public void apply(ServerWorld world, int level, EnchantmentEffectContext context, Entity user, Vec3d pos) {
         int temp = user.getRandom().nextInt(level);
         if (user instanceof PlayerEntity) {
-            ExperienceOrbEntity.spawn(world, user.getPos(), level * 100);
-            ((PlayerEntity) user).experienceLevel += temp;
+            ExperienceOrbEntity.spawn(world, user.getPos(), level * 50);
         }
         if (user instanceof LivingEntity) {
             ((LivingEntity) user).heal((float) temp);

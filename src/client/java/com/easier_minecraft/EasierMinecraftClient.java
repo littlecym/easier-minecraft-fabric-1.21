@@ -1,7 +1,6 @@
 package com.easier_minecraft;
 
 import com.easier_minecraft.register.PredicateRegister;
-
 import net.fabricmc.api.ClientModInitializer;
 
 public class EasierMinecraftClient implements ClientModInitializer {
@@ -11,5 +10,7 @@ public class EasierMinecraftClient implements ClientModInitializer {
 		// This entrypoint is suitable for setting up client-specific logic, such as
 		// rendering.
 		PredicateRegister.onInitializeClient();
+		ClientEvents.onInitializeClient();
+
 	}
 }

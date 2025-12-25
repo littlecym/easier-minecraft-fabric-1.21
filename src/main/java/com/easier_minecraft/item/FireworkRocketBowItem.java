@@ -31,6 +31,11 @@ public class FireworkRocketBowItem extends RangedWeaponItem {
 		super(settings);
 	}
 
+	@Override
+	public boolean hasGlint(ItemStack stack) {
+		return true;
+	}
+
 	private ItemStack getArrow(ItemStack stack, ItemStack projectileStack) {
 		ItemStack itemStack = projectileStack.copyWithCount(1);
 		itemStack.set(DataComponentTypes.INTANGIBLE_PROJECTILE, Unit.INSTANCE);
@@ -69,9 +74,12 @@ public class FireworkRocketBowItem extends RangedWeaponItem {
 				List<ItemStack> list = loadArrow(stack, itemStack, playerEntity);
 				if (!world.isClient && !list.isEmpty() && user.isFallFlying()) {
 					byte duration = 0;
-					if (t < 0.65) duration = 1;
-					else if (t < 0.9) duration = 2;
-					else duration = 3;
+					if (t < 0.65)
+						duration = 1;
+					else if (t < 0.9)
+						duration = 2;
+					else
+						duration = 3;
 					ItemStack firework = new ItemStack(Items.FIREWORK_ROCKET);
 					firework.set(DataComponentTypes.FIREWORKS, new FireworksComponent(
 							duration, List.of()));
