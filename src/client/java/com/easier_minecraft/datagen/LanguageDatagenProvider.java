@@ -37,6 +37,8 @@ public class LanguageDatagenProvider extends FabricLanguageProvider {
         translationBuilder.add(getEnchantmentTranslationKey(EnchantmentRegister.SWIFT_COMBO), "Swift Combo");
         translationBuilder.add(getEnchantmentTranslationKey(EnchantmentRegister.LIFE_DRAIN), "Life Drain");
         translationBuilder.add(getEnchantmentTranslationKey(EnchantmentRegister.QUICK_DRAW), "Quick Draw");
+        translationBuilder.add(getEnchantmentTranslationKey(EnchantmentRegister.POWER_DRAW), "Power Draw");
+        translationBuilder.add(getEnchantmentTranslationKey(EnchantmentRegister.PRECISION), "Precision");
     }
 
     private static String getEnchantmentTranslationKey(RegistryKey<Enchantment> enchantment) {

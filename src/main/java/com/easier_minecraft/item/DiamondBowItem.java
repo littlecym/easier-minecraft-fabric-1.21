@@ -33,9 +33,26 @@ public class DiamondBowItem extends BowItem {
 				float f = getPullProgress(i, stack, world);
 				if (!(f < 0.1)) {
 					List<ItemStack> list = load(stack, itemStack, playerEntity);
+					int powerDrawLevel = 0;
+					int precisionLevel = 0;
+					RegistryEntry.Reference<Enchantment> powerDrawEntry = world.getRegistryManager()
+							.get(RegistryKeys.ENCHANTMENT)
+							.getEntry(EnchantmentRegister.POWER_DRAW)
+							.orElse(null);
+					RegistryEntry.Reference<Enchantment> precisionEntry = world.getRegistryManager()
+							.get(RegistryKeys.ENCHANTMENT)
+							.getEntry(EnchantmentRegister.PRECISION)
+							.orElse(null);
+					if (powerDrawEntry != null) {
+						powerDrawLevel = EnchantmentHelper.getLevel(powerDrawEntry, stack);
+					}
+					if (precisionEntry != null) {
+						precisionLevel = EnchantmentHelper.getLevel(precisionEntry, stack);
+					}
 					if (world instanceof ServerWorld serverWorld && !list.isEmpty()) {
-						this.shootAll(serverWorld, playerEntity, playerEntity.getActiveHand(), stack, list, f * 3.0F,
-								0.0F, f == 1.0F, null);
+						this.shootAll(serverWorld, playerEntity, playerEntity.getActiveHand(), stack, list,
+								f * (3.0F + (float) powerDrawLevel / 1.5F),
+								(precisionLevel > 0 ? 0.0F : 1.0F), f == 1.0F, null);
 					}
 
 					world.playSound(

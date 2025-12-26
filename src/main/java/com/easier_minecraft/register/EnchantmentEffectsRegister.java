@@ -5,6 +5,8 @@ import com.mojang.serialization.MapCodec;
 import com.easier_minecraft.EasierMinecraft;
 import com.easier_minecraft.enchantment.ExperienceHarvestEnchantmentEffect;
 import com.easier_minecraft.enchantment.LifeDrainEnchantmentEffect;
+import com.easier_minecraft.enchantment.PowerDrawEnchantmentEffect;
+import com.easier_minecraft.enchantment.PrecisionEnchantmentEffect;
 import com.easier_minecraft.enchantment.PsychedelicEnchantmentEffect;
 import com.easier_minecraft.enchantment.QuickDrawEnchantmentEffect;
 import com.easier_minecraft.enchantment.SonicGuardEnchantmentEffect;
@@ -24,6 +26,8 @@ public final class EnchantmentEffectsRegister {
     public static final MapCodec<? extends EnchantmentEntityEffect> SWIFT_COMBO = register("swift_combo", SwiftComboEnchantmentEffect.CODEC);
     public static final MapCodec<? extends EnchantmentEntityEffect> LIFE_DRAIN = register("life_drain", LifeDrainEnchantmentEffect.CODEC);
     public static final MapCodec<? extends EnchantmentEntityEffect> QUICK_DRAW = register("quick_draw", QuickDrawEnchantmentEffect.CODEC);
+    public static final MapCodec<? extends EnchantmentEntityEffect> POWER_DRAW = register("power_draw", PowerDrawEnchantmentEffect.CODEC);
+    public static final MapCodec<? extends EnchantmentEntityEffect> PRECISION = register("precision", PrecisionEnchantmentEffect.CODEC);
 
     private static MapCodec<? extends EnchantmentEntityEffect> register(String name, MapCodec<? extends EnchantmentEntityEffect> codec) {
         return Registry.register(Registries.ENCHANTMENT_ENTITY_EFFECT_TYPE, Identifier.of(EasierMinecraft.MOD_ID, name), codec);

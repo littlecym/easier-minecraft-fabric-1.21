@@ -7,6 +7,8 @@
         "easier-minecraft:void_salvation", 
         "easier-minecraft:swift_combo", 
         "easier-minecraft:life_drain", 
-        "easier-minecraft:quick_draw"
+        "easier-minecraft:quick_draw", 
+        "easier-minecraft:power_draw", 
+        "easier-minecraft:precision"
     ]
 }

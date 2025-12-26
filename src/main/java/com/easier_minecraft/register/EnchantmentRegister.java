@@ -24,6 +24,8 @@ public final class EnchantmentRegister {
 	public static final RegistryKey<Enchantment> SWIFT_COMBO = of("swift_combo");
 	public static final RegistryKey<Enchantment> LIFE_DRAIN = of("life_drain");
 	public static final RegistryKey<Enchantment> QUICK_DRAW = of("quick_draw");
+	public static final RegistryKey<Enchantment> POWER_DRAW = of("power_draw");
+	public static final RegistryKey<Enchantment> PRECISION = of("precision");
 
 	public static void bootstrap(Registerable<Enchantment> registry) {
 		RegistryEntryLookup<Item> registryEntryLookup3 = registry.getRegistryLookup(RegistryKeys.ITEM);
@@ -119,6 +121,34 @@ public final class EnchantmentRegister {
 								Enchantment.leveledCost(12, 20),
 								Enchantment.constantCost(50),
 								2,
+								AttributeModifierSlot.MAINHAND,
+								AttributeModifierSlot.OFFHAND)));
+		register(
+				registry,
+				POWER_DRAW,
+				Enchantment.builder(
+						Enchantment.definition(
+								registryEntryLookup3.getOrThrow(
+										TagKey.of(RegistryKeys.ITEM, Identifier.ofVanilla("enchantable/power_draw"))),
+								5,
+								3,
+								Enchantment.leveledCost(12, 20),
+								Enchantment.constantCost(50),
+								2,
+								AttributeModifierSlot.MAINHAND,
+								AttributeModifierSlot.OFFHAND)));
+		register(
+				registry,
+				PRECISION,
+				Enchantment.builder(
+						Enchantment.definition(
+								registryEntryLookup3.getOrThrow(
+										TagKey.of(RegistryKeys.ITEM, Identifier.ofVanilla("enchantable/precision"))),
+								2,
+								1,
+								Enchantment.leveledCost(25, 25),
+								Enchantment.leveledCost(75, 25),
+								4,
 								AttributeModifierSlot.MAINHAND,
 								AttributeModifierSlot.OFFHAND)));
 
