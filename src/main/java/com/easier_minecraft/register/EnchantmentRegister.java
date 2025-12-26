@@ -8,13 +8,10 @@ import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.effect.EnchantmentEffectTarget;
 import net.minecraft.item.Item;
-import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registerable;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
@@ -27,28 +24,6 @@ public final class EnchantmentRegister {
 	public static final RegistryKey<Enchantment> SWIFT_COMBO = of("swift_combo");
 	public static final RegistryKey<Enchantment> LIFE_DRAIN = of("life_drain");
 	public static final RegistryKey<Enchantment> QUICK_DRAW = of("quick_draw");
-	public static volatile RegistryEntry<Enchantment> PSYCHEDELIC_ENTRY = null;
-	public static volatile RegistryEntry<Enchantment> SONIC_GUARD_ENTRY = null;
-	public static volatile RegistryEntry<Enchantment> EXPERIENCE_HARVEST_ENTRY = null;
-	public static volatile RegistryEntry<Enchantment> VOID_SALVATION_ENTRY = null;
-	public static volatile RegistryEntry<Enchantment> SWIFT_COMBO_ENTRY = null;
-	public static volatile RegistryEntry<Enchantment> LIFE_DRAIN_ENTRY = null;
-	public static volatile RegistryEntry<Enchantment> QUICK_DRAW_ENTRY = null;
-
-	public static void initEntry(DynamicRegistryManager registryManager) {
-		Registry<Enchantment> registry = registryManager.get(RegistryKeys.ENCHANTMENT);
-		PSYCHEDELIC_ENTRY = getEntry(PSYCHEDELIC, registry);
-		SONIC_GUARD_ENTRY = getEntry(SONIC_GUARD, registry);
-		EXPERIENCE_HARVEST_ENTRY = getEntry(EXPERIENCE_HARVEST, registry);
-		VOID_SALVATION_ENTRY = getEntry(VOID_SALVATION, registry);
-		SWIFT_COMBO_ENTRY = getEntry(SWIFT_COMBO, registry);
-		LIFE_DRAIN_ENTRY = getEntry(LIFE_DRAIN, registry);
-		QUICK_DRAW_ENTRY = getEntry(QUICK_DRAW, registry);
-	}
-
-	private static RegistryEntry<Enchantment> getEntry(RegistryKey<Enchantment> key, Registry<Enchantment> registry) {
-		return registry.getEntry(key).orElseThrow(() -> new IllegalStateException());
-	}
 
 	public static void bootstrap(Registerable<Enchantment> registry) {
 		RegistryEntryLookup<Item> registryEntryLookup3 = registry.getRegistryLookup(RegistryKeys.ITEM);

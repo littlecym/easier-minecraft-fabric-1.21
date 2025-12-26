@@ -73,7 +73,7 @@ public final class PredicateRegister {
 			if (livingEntity == null) {
 				return 0.0F;
 			}
-			return livingEntity.getActiveItem() != itemStack ? 0.0F : (itemStack.getMaxUseTime(livingEntity) - livingEntity.getItemUseTimeLeft()) * (DiamondBowItem.getQuickDrawLevel(itemStack) + 1) / 20.0F;
+			return livingEntity.getActiveItem() != itemStack ? 0.0F : (itemStack.getMaxUseTime(livingEntity) - livingEntity.getItemUseTimeLeft()) * (DiamondBowItem.getQuickDrawLevel(itemStack, clientWorld) + 1) / 20.0F;
 		});
 	
 		FabricModelPredicateProviderRegistry.register(ItemRegister.DIAMOND_BOW, Identifier.ofVanilla("pulling"), (itemStack, clientWorld, livingEntity, seed) -> {

@@ -1,6 +1,5 @@
 package com.easier_minecraft.mixin;
 
-import java.util.Optional;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -32,8 +31,6 @@ import net.minecraft.world.GameMode;
 public class ServerPlayerEntityMixin {
     @Unique
     private ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
-    @Unique
-    private Optional<RegistryEntry.Reference<Enchantment>> voidSalvationEntry = null;
 
     private boolean shouldTeleport() {
         return player.interactionManager.getGameMode() == GameMode.SURVIVAL
@@ -43,14 +40,15 @@ public class ServerPlayerEntityMixin {
     @Inject(method = "tick", at = @At("HEAD"))
     private void onTick(CallbackInfo ci) {
         if (shouldTeleport() && player.getY() < player.getWorld().getBottomY() - 32) {
-            if (voidSalvationEntry == null) {
-                voidSalvationEntry = player.getWorld().getRegistryManager()
-                        .getWrapperOrThrow(RegistryKeys.ENCHANTMENT)
-                        .getOptional(EnchantmentRegister.VOID_SALVATION);
-            }
             int voidSalvationLevel = 0;
-            for (ItemStack armorStack : player.getArmorItems()) {
-                voidSalvationLevel += EnchantmentHelper.getLevel(voidSalvationEntry.get(), armorStack);
+            RegistryEntry.Reference<Enchantment> voidSalvationEntry = player.getWorld().getRegistryManager()
+                    .get(RegistryKeys.ENCHANTMENT)
+                    .getEntry(EnchantmentRegister.SONIC_GUARD)
+                    .orElse(null);
+            if (voidSalvationEntry != null) {
+                for (ItemStack armorStack : player.getArmorItems()) {
+                    voidSalvationLevel += EnchantmentHelper.getLevel(voidSalvationEntry, armorStack);
+                }
             }
             if (voidSalvationLevel > 0 && player.getWorld() instanceof ServerWorld) {
                 player.teleport(

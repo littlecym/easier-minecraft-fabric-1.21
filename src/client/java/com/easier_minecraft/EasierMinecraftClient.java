@@ -10,7 +10,6 @@ public class EasierMinecraftClient implements ClientModInitializer {
 		// This entrypoint is suitable for setting up client-specific logic, such as
 		// rendering.
 		PredicateRegister.onInitializeClient();
-		ClientEvents.onInitializeClient();
 
 	}
 }

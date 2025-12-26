@@ -1,6 +1,5 @@
 package com.easier_minecraft.mixin;
 
-import java.util.Optional;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -22,19 +21,19 @@ import net.minecraft.server.world.ServerWorld;
 public class EntityMixin {
     @Unique
     private Entity entity = (Entity) (Object) this;
-    @Unique
-    private Optional<RegistryEntry.Reference<Enchantment>> lifeDrainEntry = null;
 
     @Inject(method = "onKilledOther", at = @At("HEAD"))
     private void healLivingEntity(ServerWorld world, LivingEntity other, CallbackInfoReturnable<Boolean> cir) {
         if (entity instanceof LivingEntity livingEntity) {
-            if (lifeDrainEntry == null) {
-                lifeDrainEntry = entity.getWorld().getRegistryManager()
-                        .getWrapperOrThrow(RegistryKeys.ENCHANTMENT)
-                        .getOptional(EnchantmentRegister.LIFE_DRAIN);
+            int lifeDrainLevel = 0;
+            RegistryEntry.Reference<Enchantment> lifeDrainEntry = entity.getWorld().getRegistryManager()
+                    .get(RegistryKeys.ENCHANTMENT)
+                    .getEntry(EnchantmentRegister.LIFE_DRAIN)
+                    .orElse(null);
+            if (lifeDrainEntry != null) {
+                lifeDrainLevel = EnchantmentHelper.getLevel(lifeDrainEntry,
+                        livingEntity.getMainHandStack());
             }
-            int lifeDrainLevel = EnchantmentHelper.getLevel(lifeDrainEntry.get(),
-                    livingEntity.getMainHandStack());
             livingEntity.heal(livingEntity.getRandom().nextFloat() * lifeDrainLevel);
         }
     }
