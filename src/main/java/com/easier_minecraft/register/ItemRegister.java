@@ -18,20 +18,25 @@ import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 
 public final class ItemRegister {
 	public static final ExplosionBowItem EXPLOSION_BOW = new ExplosionBowItem(new ExplosionBowItem.Settings()
-			.maxCount(1));
+			.maxCount(1)
+			.rarity(Rarity.RARE));
 
 	public static final TeleportBowItem TELEPORT_BOW = new TeleportBowItem(new TeleportBowItem.Settings()
-			.maxCount(1));
+			.maxCount(1)
+			.rarity(Rarity.RARE));
 
 	public static final FireworkRocketBowItem FIREWORK_ROCKET_BOW = new FireworkRocketBowItem(
 			new FireworkRocketBowItem.Settings()
-					.maxCount(1));
+					.maxCount(1)
+					.rarity(Rarity.RARE));
 
 	public static final VillagerBowItem VILLAGER_BOW = new VillagerBowItem(new VillagerBowItem.Settings()
-			.maxCount(1));
+			.maxCount(1)
+			.rarity(Rarity.RARE));
 
 	public static final DiamondBowItem DIAMOND_BOW = new DiamondBowItem(new DiamondBowItem.Settings()
 			.maxCount(1)
@@ -57,7 +62,8 @@ public final class ItemRegister {
 					.statusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 9600, 0), 1.0F)
 					.statusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 9600, 0), 1.0F)
 					.alwaysEdible()
-					.build()));
+					.build())
+			.rarity(Rarity.EPIC));
 
 	public static void onInitialize() {
 		Registry.register(Registries.ITEM, Identifier.of(EasierMinecraft.MOD_ID, "explosion_bow"), EXPLOSION_BOW);

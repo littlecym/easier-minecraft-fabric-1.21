@@ -3,6 +3,8 @@ package com.easier_minecraft.register;
 
 import com.mojang.serialization.MapCodec;
 import com.easier_minecraft.EasierMinecraft;
+import com.easier_minecraft.enchantment.BlessedEdgeEnchantmentEffect;
+import com.easier_minecraft.enchantment.BurstOfLifeEnchantmentEffect;
 import com.easier_minecraft.enchantment.ExperienceHarvestEnchantmentEffect;
 import com.easier_minecraft.enchantment.LifeDrainEnchantmentEffect;
 import com.easier_minecraft.enchantment.PowerDrawEnchantmentEffect;
@@ -28,6 +30,8 @@ public final class EnchantmentEffectsRegister {
     public static final MapCodec<? extends EnchantmentEntityEffect> QUICK_DRAW = register("quick_draw", QuickDrawEnchantmentEffect.CODEC);
     public static final MapCodec<? extends EnchantmentEntityEffect> POWER_DRAW = register("power_draw", PowerDrawEnchantmentEffect.CODEC);
     public static final MapCodec<? extends EnchantmentEntityEffect> PRECISION = register("precision", PrecisionEnchantmentEffect.CODEC);
+    public static final MapCodec<? extends EnchantmentEntityEffect> BLESSED_EDGE = register("blessed_edge", BlessedEdgeEnchantmentEffect.CODEC);
+    public static final MapCodec<? extends EnchantmentEntityEffect> BURST_OF_LIFE = register("burst_of_life", BurstOfLifeEnchantmentEffect.CODEC);
 
     private static MapCodec<? extends EnchantmentEntityEffect> register(String name, MapCodec<? extends EnchantmentEntityEffect> codec) {
         return Registry.register(Registries.ENCHANTMENT_ENTITY_EFFECT_TYPE, Identifier.of(EasierMinecraft.MOD_ID, name), codec);

@@ -9,6 +9,8 @@
         "easier-minecraft:life_drain", 
         "easier-minecraft:quick_draw", 
         "easier-minecraft:power_draw", 
-        "easier-minecraft:precision"
+        "easier-minecraft:precision", 
+        "easier-minecraft:blessed_edge", 
+        "easier-minecraft:burst_of_life"
     ]
 }

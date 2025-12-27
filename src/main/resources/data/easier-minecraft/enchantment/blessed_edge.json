@@ -1,0 +1,32 @@
+{
+  "anvil_cost": 1,
+  "description": {
+    "translate": "enchantment.easier-minecraft.blessed_edge"
+  },
+  "effects": {
+    "minecraft:post_attack": [
+      {
+        "affected": "attacker",
+        "effect": {
+          "type": "easier-minecraft:blessed_edge"
+        },
+        "enchanted": "attacker"
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 12,
+    "per_level_above_first": 11
+  },
+  "max_level": 3,
+  "min_cost": {
+    "base": 1,
+    "per_level_above_first": 11
+  },
+  "primary_items": "#minecraft:enchantable/sword",
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#minecraft:enchantable/sharp_weapon",
+  "weight": 10
+}

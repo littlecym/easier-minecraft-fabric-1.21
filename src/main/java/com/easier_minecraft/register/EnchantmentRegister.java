@@ -1,12 +1,17 @@
 package com.easier_minecraft.register;
 
 import com.easier_minecraft.EasierMinecraft;
+import com.easier_minecraft.enchantment.BlessedEdgeEnchantmentEffect;
 import com.easier_minecraft.enchantment.ExperienceHarvestEnchantmentEffect;
 import com.easier_minecraft.enchantment.PsychedelicEnchantmentEffect;
 import net.minecraft.component.EnchantmentEffectComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentLevelBasedValue;
+import net.minecraft.enchantment.effect.AttributeEnchantmentEffect;
 import net.minecraft.enchantment.effect.EnchantmentEffectTarget;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;
@@ -26,6 +31,8 @@ public final class EnchantmentRegister {
 	public static final RegistryKey<Enchantment> QUICK_DRAW = of("quick_draw");
 	public static final RegistryKey<Enchantment> POWER_DRAW = of("power_draw");
 	public static final RegistryKey<Enchantment> PRECISION = of("precision");
+	public static final RegistryKey<Enchantment> BLESSED_EDGE = of("blessed_edge");
+	public static final RegistryKey<Enchantment> BURST_OF_LIFE = of("burst_of_life");
 
 	public static void bootstrap(Registerable<Enchantment> registry) {
 		RegistryEntryLookup<Item> registryEntryLookup3 = registry.getRegistryLookup(RegistryKeys.ITEM);
@@ -151,7 +158,40 @@ public final class EnchantmentRegister {
 								4,
 								AttributeModifierSlot.MAINHAND,
 								AttributeModifierSlot.OFFHAND)));
-
+		register(
+				registry,
+				BLESSED_EDGE,
+				Enchantment.builder(
+						Enchantment.definition(
+								registryEntryLookup3.getOrThrow(ItemTags.SHARP_WEAPON_ENCHANTABLE),
+								registryEntryLookup3.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
+								10,
+								3,
+								Enchantment.leveledCost(1, 11),
+								Enchantment.leveledCost(12, 11),
+								1,
+								AttributeModifierSlot.MAINHAND))
+						.addEffect(EnchantmentEffectComponentTypes.POST_ATTACK, EnchantmentEffectTarget.ATTACKER,
+								EnchantmentEffectTarget.ATTACKER, new BlessedEdgeEnchantmentEffect()));
+		register(
+				registry,
+				BURST_OF_LIFE,
+				Enchantment.builder(
+						Enchantment.definition(
+								registryEntryLookup3.getOrThrow(ItemTags.ARMOR_ENCHANTABLE),
+								10,
+								5,
+								Enchantment.leveledCost(1, 11),
+								Enchantment.leveledCost(12, 11),
+								1,
+								AttributeModifierSlot.ARMOR))
+						.addEffect(
+								EnchantmentEffectComponentTypes.ATTRIBUTES,
+								new AttributeEnchantmentEffect(
+										Identifier.of(EasierMinecraft.MOD_ID, "burst_of_life"),
+										EntityAttributes.GENERIC_MAX_HEALTH,
+										EnchantmentLevelBasedValue.linear(2.0F),
+										EntityAttributeModifier.Operation.ADD_VALUE)));
 	}
 
 	private static void register(Registerable<Enchantment> registry, RegistryKey<Enchantment> key,
