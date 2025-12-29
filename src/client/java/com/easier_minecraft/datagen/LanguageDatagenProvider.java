@@ -40,7 +40,7 @@ public class LanguageDatagenProvider extends FabricLanguageProvider {
         translationBuilder.add(getEnchantmentTranslationKey(EnchantmentRegister.POWER_DRAW), "Power Draw");
         translationBuilder.add(getEnchantmentTranslationKey(EnchantmentRegister.PRECISION), "Precision");
         translationBuilder.add(getEnchantmentTranslationKey(EnchantmentRegister.BLESSED_EDGE), "Blessed Edge");
-        translationBuilder.add(getEnchantmentTranslationKey(EnchantmentRegister.BURST_OF_LIFE), "Burst Of Life");
+        translationBuilder.add(getEnchantmentTranslationKey(EnchantmentRegister.BURST_OF_LIFE), "Burst of Life");
     }
 
     private static String getEnchantmentTranslationKey(RegistryKey<Enchantment> enchantment) {
