@@ -1,6 +1,5 @@
 package com.easier_minecraft.mixin;
 
-
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -9,6 +8,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import com.easier_minecraft.accessor.MultiDamageAccessor;
 import com.easier_minecraft.register.EnchantmentRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -33,10 +33,10 @@ public class LivingEntityMixin {
 
     @ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true, ordinal = 0)
     private float modifyDamageAmount(float amount, DamageSource source) {
-        if (source.getSource() instanceof ArrowEntity arrowEntity) {
-            if (((ArrowEntityAccessor) arrowEntity).getMultiDamage()) {
-                amount *= 1.5F;
-            }
+        if (source.getSource() instanceof ArrowEntity arrowEntity &&
+                arrowEntity instanceof MultiDamageAccessor accessor &&
+                accessor.getMultiDamage()) {
+            amount *= 1.5F;
         } else if (source.isOf(DamageTypes.SONIC_BOOM)) {
             int sonicGuardLevel = 0;
             RegistryEntry.Reference<Enchantment> sonicGuardEntry = target.getWorld().getRegistryManager()

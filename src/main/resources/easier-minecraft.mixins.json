@@ -12,7 +12,6 @@
 		"ExperienceOrbEntityMixin", 
 		"TradeOfferMixin", 
 		"ArrowEntityMixin", 
-		"ArrowEntityAccessor", 
 		"EntityMixin"
 	],
 	"injectors": {

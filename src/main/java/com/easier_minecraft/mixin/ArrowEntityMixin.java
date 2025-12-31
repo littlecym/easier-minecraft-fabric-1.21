@@ -7,6 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import com.easier_minecraft.accessor.MultiDamageAccessor;
 import com.easier_minecraft.register.ItemRegister;
 
 import net.minecraft.entity.LivingEntity;
@@ -15,9 +16,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 @Mixin(ArrowEntity.class)
-public class ArrowEntityMixin {
+public class ArrowEntityMixin implements MultiDamageAccessor {
     @Unique
-    public boolean multiDamage = false;
+    private boolean multiDamage = false;
 
     @Inject(method = "<init>(Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemStack;)V", at = @At("TAIL"))
     private void modifyDamage(World world, LivingEntity owner, ItemStack stack, @Nullable ItemStack shotFrom,
@@ -28,6 +29,16 @@ public class ArrowEntityMixin {
         if (shotFrom.isOf(ItemRegister.DIAMOND_BOW)) {
             multiDamage = true;
         }
+    }
+
+    @Override
+    public boolean getMultiDamage() {
+        return this.multiDamage;
+    }
+
+    @Override
+    public void setMultiDamage(boolean multiDamage) {
+        this.multiDamage = multiDamage;
     }
 
 }
