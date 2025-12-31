@@ -9,6 +9,9 @@ import net.minecraft.entity.projectile.ArrowEntity;
 public interface ArrowEntityAccessor {
 
     @Accessor("multiDamage")
-    boolean getMultiDamage();
+    public boolean getMultiDamage();
+
+    @Accessor("multiDamage")
+    public void setMultiDamage(boolean multiDamage);
 
 }
