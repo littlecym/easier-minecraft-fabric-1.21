@@ -1,5 +1,6 @@
 package com.easier_minecraft.mixin;
 
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -91,6 +92,24 @@ public class LivingEntityMixin {
                     ((LivingEntity) sourceEntity).getMainHandStack());
         }
         target.timeUntilRegen = Math.max(10, 20 - 2 * swiftComboLevel);
+    }
+
+    @Inject(method = "onKilledBy", at = @At("HEAD"))
+    private void healAttacker(@Nullable LivingEntity adversary, CallbackInfo ci) {
+        if (adversary == null) {
+            return;
+        }
+        if (!target.getWorld().isClient) {
+            int lifeDrainLevel = 0;
+            RegistryEntry.Reference<Enchantment> lifeDrainEntry = target.getWorld().getRegistryManager()
+                    .get(RegistryKeys.ENCHANTMENT)
+                    .getEntry(EnchantmentRegister.LIFE_DRAIN)
+                    .orElse(null);
+            if (lifeDrainEntry != null) {
+                lifeDrainLevel = EnchantmentHelper.getLevel(lifeDrainEntry, adversary.getMainHandStack());
+            }
+            adversary.heal(adversary.getRandom().nextFloat() * lifeDrainLevel * 2);
+        }
     }
 
 }

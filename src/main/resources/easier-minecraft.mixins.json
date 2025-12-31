@@ -11,8 +11,7 @@
 		"PlayerEntityMixin", 
 		"ExperienceOrbEntityMixin", 
 		"TradeOfferMixin", 
-		"ArrowEntityMixin", 
-		"EntityMixin"
+		"ArrowEntityMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
