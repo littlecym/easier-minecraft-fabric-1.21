@@ -18,11 +18,9 @@ import net.minecraft.util.math.Vec3d;
 public record BlessedEdgeEnchantmentEffect() implements EnchantmentEntityEffect {
     public static final MapCodec<BlessedEdgeEnchantmentEffect> CODEC = MapCodec.unit(BlessedEdgeEnchantmentEffect::new);
 
-    private static final float BASE_CHANCE = 0.2F;
-    private static final float CHANCE_PER_LEVEL = 0.15F;
+    private static final float BASE_CHANCE = 0.4F;
+    private static final float CHANCE_PER_LEVEL = 0.3F;
     private static final List<RegistryEntry<StatusEffect>> VALID_BENEFICIAL_EFFECTS = List.of(
-            StatusEffects.ABSORPTION,
-            StatusEffects.CONDUIT_POWER,
             StatusEffects.DOLPHINS_GRACE,
             StatusEffects.FIRE_RESISTANCE,
             StatusEffects.HASTE,
@@ -40,15 +38,14 @@ public record BlessedEdgeEnchantmentEffect() implements EnchantmentEntityEffect 
         if (user instanceof PlayerEntity player) {
             float chance = BASE_CHANCE + CHANCE_PER_LEVEL * (level - 1);
             if (player.getRandom().nextFloat() <= chance) {
-                player.setStatusEffect(
-                        new StatusEffectInstance(
-                                VALID_BENEFICIAL_EFFECTS
-                                        .get(player.getRandom().nextInt(VALID_BENEFICIAL_EFFECTS.size())),
-                                320, player.getRandom().nextInt(level)),
-                        null);
+                RegistryEntry<StatusEffect> effectEntry = VALID_BENEFICIAL_EFFECTS
+                        .get(player.getRandom().nextInt(VALID_BENEFICIAL_EFFECTS.size()));
+                if (!player.hasStatusEffect(effectEntry)) {
+                    player.addStatusEffect(new StatusEffectInstance(effectEntry, 320,
+                            player.getRandom().nextInt(level)), null);
+                }
             }
         }
-
     }
 
     @Override
